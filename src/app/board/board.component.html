@@ -1,1 +1,5 @@
-<p>board works!</p>
+<section>
+    @for (task of tasks; track task.title) {
+        <app-task [task]="task"></app-task>
+    }
+</section>
