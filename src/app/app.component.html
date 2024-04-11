@@ -1,8 +1,15 @@
-<header>
-    <img src="/src/favicon.ico" alt="" class="logo">
-    <h1 class="name">Kanban Board</h1>
-    <mat-slide-toggle color="primary">Тёмный режим</mat-slide-toggle>
-</header>
-<main>
-    <router-outlet></router-outlet>
-</main>
+<body [class]="class">
+    <header>
+        <mat-toolbar class="toolbar" color="primary">
+            <mat-icon>local_fire_department</mat-icon>
+            <p class="name">Kanban Board</p>
+            <mat-slide-toggle class="custom-slide-toggle" color="warn" (change)="toggleTheme($event)">
+                <!-- <span id="dark">Тёмный режим</span> -->
+                <i class="material-icons">lightbulb_outline</i>
+            </mat-slide-toggle>
+        </mat-toolbar>
+    </header>
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+</body>

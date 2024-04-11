@@ -1,6 +1,9 @@
 @import '../styles.scss';
 
-header {
-    background-color: $primary-color;
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+#dark { 
     color: white;
 }

@@ -19,7 +19,7 @@ $kanban-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$kanban-theme: mat.define-light-theme((
+$light-theme: mat.define-light-theme((
   color: (
     primary: $kanban-primary,
     accent: $kanban-accent,
@@ -29,9 +29,9 @@ $kanban-theme: mat.define-light-theme((
   density: 0
 ));
 
-$dark-primary: mat.define-palette(mat.$blue-palette, 900);
+$dark-primary: mat.define-palette(mat.$grey-palette, 900);
 $dark-accent: mat.define-palette(mat.$pink-palette, A200, A200, A400);
-$dark-warn: mat.define-palette(mat.$red-palette);
+$dark-warn: mat.define-palette(mat.$green-palette);
 
 $dark-theme: mat.define-dark-theme((
   color: (
@@ -43,9 +43,12 @@ $dark-theme: mat.define-dark-theme((
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.all-component-themes($kanban-theme);
-@include mat.all-component-themes($dark-theme);
-
+// .theme-light {
+// }
+@include mat.all-component-themes($light-theme);
+.theme-dark {
+  @include mat.all-component-colors($dark-theme);
+}
 /* You can add global styles to this file, and also import other style files */
 
 $primary-color: #2196F3;
