@@ -49,6 +49,7 @@ $dark-theme: mat.define-dark-theme((
 .theme-dark {
   @include mat.all-component-colors($dark-theme);
   color: white;
+  background-color: rgb(107, 103, 103);
 }
 /* You can add global styles to this file, and also import other style files */
 
