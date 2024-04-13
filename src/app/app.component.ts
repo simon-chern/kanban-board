@@ -1,6 +1,6 @@
-import { Component, EventEmitter, HostBinding } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -13,13 +13,13 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class AppComponent {
   title = 'kanban';
-  class: string = '';
-  isDark = false;
+  class: string = 'theme-dark';
   toggleTheme(event: any) {
     if (event.checked) {
-      this.class = 'theme-dark';
-    } else {
       this.class = '';
+    } 
+    else {
+      this.class = 'theme-dark';
     }
   }
 }

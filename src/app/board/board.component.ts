@@ -4,6 +4,8 @@ import { TaskComponent } from "../task/task.component";
 import { CdkDragDrop, DragDropModule, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { TaskDialogComponent, TaskDialogResult } from '../task-dialog/task-dialog.component';
 
 @Component({
     selector: 'app-board',
@@ -13,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
     imports: [TaskComponent, DragDropModule, MatButtonModule, MatIconModule]
 })
 export class BoardComponent {
+  constructor(private dialog: MatDialog) {}
+
   done: Task[] = [];
   inProgress: Task[] = [];
   todo: Task[] = [
@@ -29,7 +33,7 @@ export class BoardComponent {
 
   drop(event: CdkDragDrop<Task[]>): void {
     if (event.previousContainer === event.container) {
-      
+
     }
     if (!event.container.data || !event.previousContainer.data) {
       return;
@@ -41,4 +45,21 @@ export class BoardComponent {
       event.currentIndex
     );
   }
+  newTask(): void {
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
+      width: '400px',
+      data: {
+        task: {},
+      },
+    });
+    dialogRef
+      .afterClosed()
+      .subscribe((result: TaskDialogResult | undefined) => {
+        if (!result) {
+          return;
+        }
+        this.todo.push(result.task);
+      });
+  }
 }
+
