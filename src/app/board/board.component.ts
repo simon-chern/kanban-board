@@ -12,7 +12,7 @@ import { TaskDialogComponent, TaskDialogResult } from '../task-dialog/task-dialo
     standalone: true,
     templateUrl: './board.component.html',
     styleUrl: './board.component.scss',
-    imports: [TaskComponent, DragDropModule, MatButtonModule, MatIconModule]
+    imports: [TaskComponent, DragDropModule, MatButtonModule, MatIconModule, MatDialogModule]
 })
 export class BoardComponent {
   constructor(private dialog: MatDialog) {}

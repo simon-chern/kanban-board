@@ -13,7 +13,6 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './task-dialog.component.scss'
 })
 export class TaskDialogComponent {
-  private backupTask: Partial<Task> = { ...this.data.task };
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
@@ -21,11 +20,10 @@ export class TaskDialogComponent {
   ) { }
 
   cancel(): void {
-    this.data.task.title = this.backupTask.title;
-    this.data.task.description = this.backupTask.description;
-    this.dialogRef.close(this.data);
+    this.dialogRef.close();
   }
 }
+
 export interface TaskDialogData {
   task: Partial<Task>;
   enableDelete: boolean;
