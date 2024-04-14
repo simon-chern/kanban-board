@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { Task } from '../board/task';
 import { MAT_DIALOG_DATA, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-task-dialog',
   standalone: true,
-  imports: [MatInputModule, FormsModule, MatDialogClose, MatButtonModule, MatFormField],
+  imports: [MatInputModule, FormsModule, MatDialogClose, MatButtonModule, MatFormField, MatIconModule],
   templateUrl: './task-dialog.component.html',
   styleUrl: './task-dialog.component.scss'
 })

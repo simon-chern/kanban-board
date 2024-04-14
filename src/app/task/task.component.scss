@@ -1,4 +1,8 @@
 .item {
     margin: 20px 0;
     padding: 10px;
+    cursor: pointer;
+}
+:host {
+  display: block;
 }
