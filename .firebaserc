@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "kanban-7f8a0": {
+      "hosting": {
+        "kanban": [
+          "kanban-7f8a0"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "kanban-7f8a0"
+  }
+}
