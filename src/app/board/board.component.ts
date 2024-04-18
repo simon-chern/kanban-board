@@ -64,12 +64,9 @@ export class BoardComponent {
       },
     });
     dialogRef.afterClosed().subscribe((result: TaskDialogResult | undefined) => {
-      if (!result) {
-        return;
-      }
       const dataList = this[list];
       const taskIndex = dataList.indexOf(task);
-      if (result.delete) {
+      if (result?.delete) {
         this.removeTask(list, dataList[taskIndex].id)
       } 
       else {
@@ -118,7 +115,7 @@ export class BoardComponent {
     const promise = addDoc(todoColRef, createTodo).then((responce) => responce.id);
     return from(promise);
   }
-  
+
   updateTask(todoId: string, dataToUpdate: {title: string, description: string}, coll: string): Observable<void> {
     const docRef = doc(this.store, coll, todoId)
     const promise = setDoc(docRef, dataToUpdate)
