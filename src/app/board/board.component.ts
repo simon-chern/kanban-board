@@ -10,6 +10,7 @@ import { Observable, from } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { CdkDragDrop, CdkDropList, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
+
 @Component({
     selector: 'app-board',
     standalone: true,
@@ -81,9 +82,12 @@ export class BoardComponent {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       const item = event.previousContainer.data[event.previousIndex];
+      console.log(item.id)
       const targetCollection = event.container.id;
+      
+      console.log(event.previousContainer.id, targetCollection, event.currentIndex)
       this.addTodo(item.title, item.description, targetCollection);
-      this.removeTodo(event.previousIndex.toString());
+      this.removeTodo(event.previousContainer.id, item.id);
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -104,7 +108,7 @@ export class BoardComponent {
         if (!result) {
           return;
         }
-        this.addTodo(result.task.title, result.task.description, 'todoCollection');
+        this.addTodo(result.task.title, result.task.description, 'todo');
       });
   }
   addTodo(title: string, description: string, coll: string): Observable<string> {
@@ -113,9 +117,9 @@ export class BoardComponent {
     const promise = addDoc(todoColRef, createTodo).then((responce) => responce.id);
     return from(promise);
   }
-  // !!!!!!!!!!
-  removeTodo(todoId: string) {
-    const docRef = doc(this.store, "todo", todoId);
+
+  removeTodo(coll: string, todoId: string,): Observable<void> {
+    const docRef = doc(this.store, coll, todoId);
     const promise = deleteDoc(docRef);
     return from(promise);
   }
