@@ -1,0 +1,33 @@
+<form [formGroup]="userForm" class="container">
+  <mat-form-field appearance="outline">
+    <mat-label>Enter your email</mat-label>
+    <input matInput
+           placeholder="pat@example.com"
+           formControlName="email"
+           required>
+           @if (userForm.invalid) {
+                <mat-error>{{errorMessage}}</mat-error>
+            }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Username</mat-label>
+    <input matInput formControlName="username" placeholder="Username">
+    @if (userForm.invalid) {
+        <mat-error>{{errorMessage}}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Enter your password</mat-label>
+    <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" placeholder="!@#$%^&">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+     @if (userForm.invalid) {
+        <mat-error>{{errorMessage}}</mat-error>
+    }
+  </mat-form-field>
+
+  <button mat-raised-button type="submit" (click)="Submit()" color="Accent">Submit</button>
+</form>
