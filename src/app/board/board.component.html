@@ -20,7 +20,7 @@
             <p class="empty-label">Empty list</p>
         }
         @for (task of todo; track task.title) {
-            <app-task class="task" cdkDrag [task]="task"></app-task>
+            <app-task (edit)="editTask('todo', $event)" class="task" cdkDrag [task]="task"></app-task>
         }
       </mat-card>
     </div>
@@ -40,7 +40,7 @@
             <p class="empty-label">Empty list</p>
         }
         @for (task of inProgress; track task.title) {
-            <app-task class="task" cdkDrag [task]="task"></app-task>
+            <app-task (edit)="editTask('inProgress', $event)" class="task" cdkDrag [task]="task"></app-task>
         }
       </mat-card>
     </div>
@@ -60,7 +60,7 @@
             <p class="empty-label">Empty list</p>
         }
         @for (task of done; track task.title) {
-            <app-task class="task" cdkDrag [task]="task"></app-task>
+            <app-task (edit)="editTask('done', $event)" class="task" cdkDrag [task]="task"></app-task>
         }
       </mat-card>
     </div>

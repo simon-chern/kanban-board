@@ -55,27 +55,28 @@ export class BoardComponent {
     }) as Observable<Task[]>;
   }
   
-  // editTask(list: 'done' | 'todo' | 'inProgress', task: Task): void {
-  //   const dialogRef = this.dialog.open(TaskDialogComponent, {
-  //     width: '400px',
-  //     data: {
-  //       task,
-  //       enableDelete: true,
-  //     },
-  //   });
-  //   dialogRef.afterClosed().subscribe((result: TaskDialogResult | undefined) => {
-  //     if (!result) {
-  //       return;
-  //     }
-  //     const dataList = this[list];
-  //     const taskIndex = dataList.indexOf(task);
-  //     if (result.delete) {
-  //       dataList.splice(taskIndex, 1);
-  //     } else {
-  //       dataList[taskIndex] = task;
-  //     }
-  //   });
-  // }
+  editTask(list: 'done' | 'todo' | 'inProgress', task: Task): void {
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
+      width: '400px',
+      data: {
+        task,
+        enableDelete: true,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result: TaskDialogResult | undefined) => {
+      if (!result) {
+        return;
+      }
+      const dataList = this[list];
+      const taskIndex = dataList.indexOf(task);
+      if (result.delete) {
+        this.removeTask(list, dataList[taskIndex].id)
+      } 
+      // else {
+      //   dataList[taskIndex] = task;
+      // }
+    });
+  }
 
   drop(event: CdkDragDrop<Task[]>): void {
     if (event.previousContainer === event.container) {
@@ -87,7 +88,7 @@ export class BoardComponent {
       
       console.log(event.previousContainer.id, targetCollection, event.currentIndex)
       this.addTodo(item.title, item.description, targetCollection);
-      this.removeTodo(event.previousContainer.id, item.id);
+      this.removeTask(event.previousContainer.id, item.id);
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -118,7 +119,7 @@ export class BoardComponent {
     return from(promise);
   }
 
-  removeTodo(coll: string, todoId: string,): Observable<void> {
+  removeTask(coll: string, todoId: string,): Observable<void> {
     const docRef = doc(this.store, coll, todoId);
     const promise = deleteDoc(docRef);
     return from(promise);
