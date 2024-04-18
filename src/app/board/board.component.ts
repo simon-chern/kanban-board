@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TaskDialogComponent, TaskDialogResult } from '../task-dialog/task-dialog.component';
-import { Firestore, addDoc, collection, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { CdkDragDrop, CdkDropList, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
@@ -72,9 +72,9 @@ export class BoardComponent {
       if (result.delete) {
         this.removeTask(list, dataList[taskIndex].id)
       } 
-      // else {
-      //   dataList[taskIndex] = task;
-      // }
+      else {
+        this.updateTask(dataList[taskIndex].id, dataList[taskIndex], list);
+      }
     });
   }
 
@@ -116,6 +116,12 @@ export class BoardComponent {
     const todoColRef = collection(this.store, coll);
     const createTodo = { title, description };
     const promise = addDoc(todoColRef, createTodo).then((responce) => responce.id);
+    return from(promise);
+  }
+  
+  updateTask(todoId: string, dataToUpdate: {title: string, description: string}, coll: string): Observable<void> {
+    const docRef = doc(this.store, coll, todoId)
+    const promise = setDoc(docRef, dataToUpdate)
     return from(promise);
   }
 
