@@ -1,4 +1,5 @@
 <form [formGroup]="userForm" class="container">
+  <mat-label style="font-size: 26px; margin: 10px auto">Register</mat-label>
   <mat-form-field appearance="outline">
     <mat-label>Enter your email</mat-label>
     <input matInput
@@ -30,4 +31,5 @@
   </mat-form-field>
 
   <button mat-raised-button type="submit" (click)="Submit()" color="Accent">Submit</button>
+  <mat-label matTooltip="click to log in" style="margin: auto; text-decoration: underline">Create an account</mat-label>
 </form>

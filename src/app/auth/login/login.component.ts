@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, Validators, FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormField } from '@angular/material/form-field';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../auth.service';
 import { MatButtonModule } from '@angular/material/button';
 import { __values } from 'tslib';
@@ -13,7 +13,9 @@ import { MatIcon } from '@angular/material/icon';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatFormField, MatInputModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIcon],
+  imports: [MatFormField, MatInputModule,
+    FormsModule, ReactiveFormsModule, MatButtonModule, MatIcon, MatTooltipModule
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
