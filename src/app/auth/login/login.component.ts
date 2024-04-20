@@ -4,9 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-signup',
   standalone: true,
   imports: [],
-  templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss'
 })
-export class SignupComponent {
+export class LoginComponent {
 
 }

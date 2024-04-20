@@ -29,7 +29,10 @@
         <mat-error>{{errorMessage}}</mat-error>
     }
   </mat-form-field>
-
   <button mat-raised-button type="submit" (click)="Submit()" color="Accent">Submit</button>
-  <mat-label matTooltip="click to log in" style="margin: auto; text-decoration: underline">Create an account</mat-label>
+  <mat-label matTooltip="click to log in" routerLink="/login"
+    style="margin: auto; text-decoration: underline">Already have an account?</mat-label>
+  @if (success) {
+    <mat-icon class="done-icon">done_outline</mat-icon>
+  }
 </form>

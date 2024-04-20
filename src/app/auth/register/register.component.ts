@@ -5,14 +5,14 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../auth.service';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [MatFormField, MatInputModule,
+  imports: [MatFormField, MatInputModule, RouterLink,
     FormsModule, ReactiveFormsModule, MatButtonModule, MatIcon, MatTooltipModule
   ],
   templateUrl: './register.component.html',
@@ -27,6 +27,7 @@ export class RegisterComponent {
   })
 
   errorMessage: string = 'Enter correct value';
+  success: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -37,9 +38,12 @@ export class RegisterComponent {
     const password = values.password!;
     this.authService.register(email, username, password)
     .subscribe({next: () => {
-      this.router.navigateByUrl('/board');
-    }, error: (err) => {
-      this.errorMessage = err.code;
+      this.success = true;
+      setTimeout(() => {
+        this.router.navigateByUrl('/board')
+      }, 50);
+    }, error: () => {
+      this.errorMessage = "You must provide values";
     }
     }
     )
