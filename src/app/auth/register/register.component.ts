@@ -5,21 +5,20 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../auth.service';
 import { MatButtonModule } from '@angular/material/button';
-import { __values } from 'tslib';
 import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [MatFormField, MatInputModule,
     FormsModule, ReactiveFormsModule, MatButtonModule, MatIcon, MatTooltipModule
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss'
 })
-export class LoginComponent {
+export class RegisterComponent {
   hide = true;
   userForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -27,7 +26,7 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required])
   })
 
-  errorMessage = 'Enter correct value';
+  errorMessage: string = 'Enter correct value';
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -37,9 +36,13 @@ export class LoginComponent {
     const username = values.username!;
     const password = values.password!;
     this.authService.register(email, username, password)
-    .subscribe(() => {
+    .subscribe({next: () => {
       this.router.navigateByUrl('/board');
-    })
+    }, error: (err) => {
+      this.errorMessage = err.code;
+    }
+    }
+    )
   }
 }
 

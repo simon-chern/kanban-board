@@ -13,7 +13,7 @@ export class AuthService {
       .then(response => updateProfile(response.user, { displayName: username}));
     return from(promise);
   }
-  // enter(email: string, password: string): Observable<void> {
+  //login(email: string, password: string): Observable<void> {
   //   const promise = 
   // }
 }
