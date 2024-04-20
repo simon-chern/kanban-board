@@ -43,7 +43,7 @@ export class RegisterComponent {
         this.router.navigateByUrl('/board')
       }, 50);
     }, error: () => {
-      this.errorMessage = "You must provide values";
+      this.errorMessage = "Something went wrong";
     }
     }
     )
