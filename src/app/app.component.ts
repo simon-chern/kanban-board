@@ -12,7 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'kanban';
+  constructor() {}
+  
   class: string = 'theme-dark';
   toggleTheme(event: any) {
     if (event.checked) {

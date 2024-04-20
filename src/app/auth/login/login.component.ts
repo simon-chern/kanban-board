@@ -31,16 +31,15 @@ export class LoginComponent {
   }
   Submit(): void {
     const values = this.userForm.getRawValue();
-    const email = values.email!;
-    const password = values.password!;
-    this.authService.login(email, password)
+    //const email = values.email!; can be deleted 
+    //const password = values.password!;
+    this.authService.login(values.email!, values.password!)
       .subscribe({
         next: () => {
           this.success = true;
-          setTimeout(() => {
-            this.router.navigateByUrl('/board')
-          }, 50);
-        }, error: () => {
+          this.router.navigateByUrl('/board');
+        }, error: (err) => {
+          this.errorMessage = err.message;
         }
       }
       )

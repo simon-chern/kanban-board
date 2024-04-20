@@ -8,7 +8,9 @@ import { UserInterface } from './user.interface';
 })
 export class AuthService {
   user$ = user(this.fireBaseAuth);
+
   currentUserSig = signal<UserInterface | null | undefined>(undefined);
+  
   constructor(private fireBaseAuth: Auth) { }
   register(email: string, username: string, password: string): Observable<void> {
     const promise = createUserWithEmailAndPassword(this.fireBaseAuth, email, password)
@@ -17,7 +19,6 @@ export class AuthService {
   }
   login(email: string, password: string): Observable<void> {
     const promise = signInWithEmailAndPassword(this.fireBaseAuth, email, password).then(() => {})
-    console.log(this.user$);
     return from(promise);
   };
 }
