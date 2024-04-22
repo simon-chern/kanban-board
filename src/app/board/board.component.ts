@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TaskDialogComponent, TaskDialogResult } from '../task-dialog/task-dialog.component';
 import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
-import { Observable, from } from 'rxjs';
+import { Observable, combineLatest, from } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { CdkDragDrop, CdkDropList, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Auth } from '@angular/fire/auth';
@@ -20,61 +20,53 @@ import { AuthService } from '../auth/auth.service';
     styleUrl: './board.component.scss',
     imports: [TaskComponent, DragDropModule, MatButtonModule, MatIconModule, MatDialogModule, AsyncPipe, CdkDropList]
 })
-export class BoardComponent implements OnInit{
-  todo!: Task[];
-  inProgress!: Task[];
-  done!: Task[];
+export class BoardComponent implements OnInit {
+  todo: Task[] = [];
+  inProgress: Task[] = [];
+  done: Task[] = [];
 
   userId: string | undefined;
   ngOnInit(): void {
     this.fireBaseAuth.onAuthStateChanged(user => {
       if (user) {
+        console.log("User logged in.")
         this.userId = user.uid;
-        this.fetchData();
+        console.log(this.userId)
+        this.fetchData();  
       } else {
         console.log('User is not authenticated.');
       }
     });
   }
   
-  constructor(private dialog: MatDialog, private store: Firestore, private fireBaseAuth: Auth, private authService: AuthService) {
-    // this.getTodo().subscribe(data => {
-    //   this.todo = data; // Assign the data to todo
-    //   console.log(data);
-    //   console.log(this.userId);
-    // });
-    this.getInprogress().subscribe(data => {
-      this.inProgress = data; // Assign the data to todo
-    });
-    this.getDone().subscribe(data => {
-      this.done = data; // Assign the data to todo
-    });
-  }
+  constructor(
+    private dialog: MatDialog, 
+    private store: Firestore,
+    private fireBaseAuth: Auth,
+    private authService: AuthService) {}
+
   fetchData():void {
-    this.getTodo().subscribe(data => {
-      this.todo = data;
-      console.log('Todo data:', data);
+    if (!this.userId) {
+      console.log('User ID is not available.');
+      return;
+    }
+
+    // Fetch all types of data in parallel
+    const todo$ = this.getData(`todo|${this.userId}`);
+    const inProgress$ = this.getData(`inProgress|${this.userId}`);
+    const done$ = this.getData(`done|${this.userId}`);
+    // Combine all observables and subscribe once to update data
+    combineLatest([todo$, inProgress$, done$]).subscribe(([todo, inProgress, done]) => {
+      this.todo = todo;
+      this.inProgress = inProgress;
+      this.done = done;
+      console.log(this.todo)
     });
-  }
-  // here we get all the tasks from Firebase
-  getTodo(): Observable<Task[]> {
-    const todoCollection = collection(this.store, `todo|${this.userId}`);
-    return collectionData(todoCollection, {
-      idField: 'id'
-    }) as Observable<Task[]>;
-  }
-  inProgressCollection = collection(this.store, 'inProgress');
-  getInprogress(): Observable<Task[]> {
-    return collectionData(this.inProgressCollection, {
-      idField: 'id'
-    }) as Observable<Task[]>;
   }
   
-  doneCollection = collection(this.store, 'done');
-  getDone(): Observable<Task[]> {
-    return collectionData(this.doneCollection, {
-      idField: 'id'
-    }) as Observable<Task[]>;
+  getData(collectionPath: string): Observable<Task[]> {
+    const collectionRef = collection(this.store, collectionPath);
+    return collectionData(collectionRef, { idField: 'id' }) as Observable<Task[]>;
   }
   
   editTask(list: 'done' | 'todo' | 'inProgress', task: Task): void {
@@ -102,10 +94,10 @@ export class BoardComponent implements OnInit{
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       const item = event.previousContainer.data[event.previousIndex];
-      console.log(item.id)
       const targetCollection = event.container.id;
       
-      console.log(event.previousContainer.id, targetCollection, event.currentIndex)
+      //console.log(item.id)
+      //console.log(event.previousContainer.id, targetCollection, event.currentIndex)
       this.addTodo(item.title, item.description, targetCollection);
       this.removeTask(event.previousContainer.id, item.id);
       transferArrayItem(
@@ -129,24 +121,24 @@ export class BoardComponent implements OnInit{
         if (!result) {
           return;
         }
-        this.addTodo(result.task.title, result.task.description, `todo|${userId}`);
-      });
+        this.addTodo(result.task.title, result.task.description, "todo");
+      });  
   }
   addTodo(title: string, description: string, coll: string): Observable<string> {
-    const todoColRef = collection(this.store, coll);
+    const todoColRef = collection(this.store, `${coll}|${this.userId}`);
     const createTodo = { title, description };
     const promise = addDoc(todoColRef, createTodo).then((responce) => responce.id);
     return from(promise);
   }
 
   updateTask(todoId: string, dataToUpdate: {title: string, description: string}, coll: string): Observable<void> {
-    const docRef = doc(this.store, coll, todoId)
+    const docRef = doc(this.store, `${coll}|${this.userId}`, todoId)
     const promise = setDoc(docRef, dataToUpdate)
     return from(promise);
   }
 
   removeTask(coll: string, todoId: string,): Observable<void> {
-    const docRef = doc(this.store, coll, todoId);
+    const docRef = doc(this.store, `${coll}|${this.userId}`, todoId);
     const promise = deleteDoc(docRef);
     return from(promise);
   }
