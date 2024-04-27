@@ -5,6 +5,7 @@ import { Task } from '../board/task';
 import { MAT_DIALOG_DATA, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-task-dialog',
@@ -16,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class TaskDialogComponent {
 
   constructor(
+    public authService: AuthService,
     public dialogRef: MatDialogRef<TaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: TaskDialogData
   ) { }

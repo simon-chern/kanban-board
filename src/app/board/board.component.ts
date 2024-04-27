@@ -60,7 +60,6 @@ export class BoardComponent implements OnInit {
       this.todo = todo;
       this.inProgress = inProgress;
       this.done = done;
-      console.log(this.todo)
     });
   }
   

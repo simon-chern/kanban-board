@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -35,13 +35,14 @@ export class AppComponent implements OnInit{
   }
 
   //code for dark and light themes
-  class: string = 'theme-dark';
+
+  //classSignal: string = 'theme-dark';
   toggleTheme(event: any) {
     if (event.checked) {
-      this.class = '';
+      this.authService.classThemeSig.set('');
     } 
     else {
-      this.class = 'theme-dark';
+      this.authService.classThemeSig.set('theme-dark');
     }
   }
 }

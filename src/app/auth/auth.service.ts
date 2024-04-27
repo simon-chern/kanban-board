@@ -8,7 +8,7 @@ import { UserInterface } from './user.interface';
 })
 export class AuthService {
   user$ = user(this.fireBaseAuth);
-
+  classThemeSig = signal<string>('theme-dark');
   currentUserSig = signal<UserInterface | null | undefined>(undefined);
   userId = this.fireBaseAuth.currentUser?.uid;
   constructor(private fireBaseAuth: Auth) { }

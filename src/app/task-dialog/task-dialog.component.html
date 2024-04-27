@@ -1,14 +1,14 @@
-<mat-form-field class="theme-dark">
+<mat-form-field [class]="authService.classThemeSig()">
   <mat-label>Title</mat-label>
   <input matInput cdkFocusInitial [(ngModel)]="data.task.title" />
 </mat-form-field>
 
-<mat-form-field class="theme-dark">
+<mat-form-field [class]="authService.classThemeSig()">
   <mat-label>Description</mat-label>
   <textarea matInput [(ngModel)]="data.task.description"></textarea>
 </mat-form-field>
 
-<div mat-dialog-actions class="theme-dark">
+<div mat-dialog-actions [class]="authService.classThemeSig()">
     <button mat-button (click)="cancel()">Cancel</button>
     <button mat-button [mat-dialog-close]="{ task: data.task }">OK</button>
     @if (data.enableDelete) {
