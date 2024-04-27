@@ -21,9 +21,9 @@ import { AuthService } from '../auth/auth.service';
     imports: [TaskComponent, DragDropModule, MatButtonModule, MatIconModule, MatDialogModule, AsyncPipe, CdkDropList]
 })
 export class BoardComponent implements OnInit {
-  todo: Task[] = [];
-  inProgress: Task[] = [];
-  done: Task[] = [];
+  public todo: Task[] = [];
+  public inProgress: Task[] = [];
+  public done: Task[] = [];
 
   userId: string | undefined;
   ngOnInit(): void {
@@ -42,8 +42,7 @@ export class BoardComponent implements OnInit {
   constructor(
     private dialog: MatDialog, 
     private store: Firestore,
-    private fireBaseAuth: Auth,
-    private authService: AuthService) {}
+    private fireBaseAuth: Auth) {}
 
   fetchData():void {
     if (!this.userId) {
