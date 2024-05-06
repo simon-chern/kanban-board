@@ -10,7 +10,6 @@ import { Observable, combineLatest, from } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { CdkDragDrop, CdkDropList, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Auth } from '@angular/fire/auth';
-import { AuthService } from '../auth/auth.service';
 
 
 @Component({
