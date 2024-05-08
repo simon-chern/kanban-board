@@ -11,5 +11,5 @@ import { Task } from '../board/task';
 })
 export class TaskComponent {
   @Input() task: Task | undefined;
-  @Output() edit = new EventEmitter<Task>();
+  @Output() edit = new EventEmitter<Task>(); // create eventEmitter to emit a task
 }
