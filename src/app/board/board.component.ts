@@ -30,7 +30,6 @@ export class BoardComponent implements OnInit {
       if (user) {
         console.log("User logged in.")
         this.userId = user.uid;
-        console.log(this.userId)
         this.fetchData();  
       } else {
         console.log('User is not authenticated.');
