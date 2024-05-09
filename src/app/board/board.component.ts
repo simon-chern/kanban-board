@@ -11,7 +11,6 @@ import { AsyncPipe } from '@angular/common';
 import { CdkDragDrop, CdkDropList, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Auth } from '@angular/fire/auth';
 
-
 @Component({
     selector: 'app-board',
     standalone: true,
@@ -92,7 +91,6 @@ export class BoardComponent implements OnInit {
       const item = event.previousContainer.data[event.previousIndex];
       const targetCollection = event.container.id;
       
-      //console.log(item.id)
       //console.log(event.previousContainer.id, targetCollection, event.currentIndex)
       this.addTodo(item.title, item.description, targetCollection);
       this.removeTask(event.previousContainer.id, item.id);
