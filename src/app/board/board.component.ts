@@ -41,7 +41,7 @@ export class BoardComponent implements OnInit {
     private store: Firestore,
     private fireBaseAuth: Auth) {}
 
-  fetchData():void {
+  private fetchData():void {
     if (!this.userId) {
       console.log('User ID is not available.');
       return;
@@ -58,12 +58,12 @@ export class BoardComponent implements OnInit {
       this.done = done;
     });
   }
-  
+  // have to move to a service
   getData(collectionPath: string): Observable<Task[]> {
     const collectionRef = collection(this.store, collectionPath);
     return collectionData(collectionRef, { idField: 'id' }) as Observable<Task[]>;
   }
-  
+  // function that edits a task by opening dialog and pushing task to it.
   editTask(list: 'done' | 'todo' | 'inProgress', task: Task): void {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '400px',
@@ -83,7 +83,7 @@ export class BoardComponent implements OnInit {
       }
     });
   }
-
+  // 
   drop(event: CdkDragDrop<Task[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -101,7 +101,9 @@ export class BoardComponent implements OnInit {
         event.currentIndex
     )}
   }
-  newTask(): void {
+
+  // function to add a new task to a todo column
+  private newTask(): void {
     const userId: string | undefined = this.fireBaseAuth.currentUser?.uid;
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '400px',
@@ -118,6 +120,7 @@ export class BoardComponent implements OnInit {
         this.addTodo(result.task.title, result.task.description, "todo");
       });  
   }
+  //code below must be in a service
   addTodo(title: string, description: string, coll: string): Observable<string> {
     const todoColRef = collection(this.store, `${coll}|${this.userId}`);
     const createTodo = { title, description };
