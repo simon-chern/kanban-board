@@ -14,7 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
-  userName: string | null | undefined = '';
+  public userName: string | null | undefined = '';
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       if (user) {
@@ -30,14 +30,14 @@ export class AppComponent implements OnInit{
   }
   constructor(readonly authService: AuthService) {}
   
-  logout() {
+  public logout() {
     this.authService.logout();
   }
 
   //code for dark and light themes
 
   //classSignal: string = 'theme-dark';
-  toggleTheme(event: any) {
+  public toggleTheme(event: any) {
     if (event.checked) {
       this.authService.classThemeSig.set('');
     } 
