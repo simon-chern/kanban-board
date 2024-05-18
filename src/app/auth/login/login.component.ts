@@ -18,29 +18,24 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  hide = true;
+  public hide = true;
   userForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required])
   })
 
-  errorMessage: string = 'Enter correct value';
-  success: boolean = false;
+  public errorMessage: string = 'Enter correct value';
 
-  constructor(private authService: AuthService, private router: Router) {
-  }
-  
-  Submit(): void {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  public Submit(): void {
     const values = this.userForm.getRawValue();
-    //const email = values.email!; can be deleted 
-    //const password = values.password!;
     this.authService.login(values.email!, values.password!)
       .subscribe({
         next: () => {
-          this.success = true;
           this.router.navigateByUrl('/board');
         }, error: (err) => {
-          this.errorMessage = err.message;
+          this.errorMessage = `Something went wrong ${err.message}`;
         }
       }
       )

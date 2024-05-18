@@ -7,21 +7,22 @@ import { UserInterface } from './user.interface';
   providedIn: 'root'
 })
 export class AuthService {
-  user$ = user(this.fireBaseAuth);
-  classThemeSig = signal<string>('theme-dark');
-  currentUserSig = signal<UserInterface | null | undefined>(undefined);
-  userId = this.fireBaseAuth.currentUser?.uid;
+  public user$ = user(this.fireBaseAuth);
+  public classThemeSig = signal<string>('theme-dark');
+  public currentUserSig = signal<UserInterface | null | undefined>(undefined);
+  
   constructor(private readonly fireBaseAuth: Auth) { }
-  register(email: string, username: string, password: string): Observable<void> {
+
+  public register(email: string, username: string, password: string): Observable<void> {
     const promise = createUserWithEmailAndPassword(this.fireBaseAuth, email, password)
       .then(response => updateProfile(response.user, { displayName: username}));
     return from(promise);
   };
-  login(email: string, password: string): Observable<void> {
+  public login(email: string, password: string): Observable<void> {
     const promise = signInWithEmailAndPassword(this.fireBaseAuth, email, password).then(() => {})
     return from(promise);
   };
-  logout(): Observable<void> {
+  public logout(): Observable<void> {
     const promise = signOut(this.fireBaseAuth);
     return from(promise);
   };

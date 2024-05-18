@@ -15,17 +15,17 @@
     <mat-label>Enter your password</mat-label>
     <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" placeholder="!@#$%^&">
     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-icon> {{hide ? 'visibility_off' : 'visibility'}} </mat-icon>
     </button>
-     @if (userForm.invalid) {
-        <mat-error>{{errorMessage}}</mat-error>
+    @if (userForm.invalid) {
+      <mat-error>{{errorMessage}}</mat-error>
     }
   </mat-form-field>
+
   <button mat-raised-button type="submit" (click)="Submit()" color="Accent">Enter your account</button>
-  <mat-label matTooltip="Click to register" routerLink="/register"
-    style="margin: auto; text-decoration: underline">Do not have an account?</mat-label>
-  @if (success) {
-    <mat-icon class="done-icon">done_outline</mat-icon>
-  }
+  <mat-label  matTooltip="Click to register" routerLink="/register" 
+              style="margin: auto; text-decoration: underline">
+              Do not have an account?
+  </mat-label>
 </form>
 

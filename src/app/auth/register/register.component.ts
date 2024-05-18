@@ -12,38 +12,32 @@ import { MatIcon } from '@angular/material/icon';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [MatFormField, MatInputModule, RouterLink,
-    FormsModule, ReactiveFormsModule, MatButtonModule, MatIcon, MatTooltipModule
-  ],
+  imports: [MatFormField, MatInputModule, RouterLink, FormsModule, ReactiveFormsModule, MatButtonModule, MatIcon, MatTooltipModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-  hide = true;
+  public hide = true;
   userForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
   })
 
-  errorMessage: string = 'Enter correct value';
-  success: boolean = false;
+  public errorMessage: string = 'Enter correct value';
 
-  constructor(private authService: AuthService, private router: Router) {
-  }
-  Submit(): void {
+  constructor(private readonly authService: AuthService, private readonly router: Router) {}
+
+  public Submit(): void {
     const values = this.userForm.getRawValue();
     const email = values.email!;
     const username = values.username!;
     const password = values.password!;
     this.authService.register(email, username, password)
     .subscribe({next: () => {
-      this.success = true;
-      setTimeout(() => {
-        this.router.navigateByUrl('/board')
-      }, 50);
-    }, error: () => {
-      this.errorMessage = "Something went wrong";
+      this.router.navigateByUrl('/board')
+    }, error: (err) => {
+      this.errorMessage = `Something went wrong ${err.message}`;
     }
     }
     )
