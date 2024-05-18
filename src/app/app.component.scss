@@ -1,4 +1,13 @@
 .toolbar {
+    padding: 0 100px;
     display: flex;
     justify-content: space-between;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    p {
+        margin: 0 5px;
+    }
 }

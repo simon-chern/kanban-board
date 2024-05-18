@@ -4,15 +4,15 @@
             <mat-icon routerLink="/">view_kanban</mat-icon >
             <p class="name" routerLink="/board">Kanban Board</p>
             @if (authService.currentUserSig()) {
-                <p (click)="logout()" matTooltip="exit your account" style="font-size: 12px"> {{ userName }} 
-                <mat-icon>exit_to_app</mat-icon>
-            </p>
+                <div class="user-info" (click)="logout()" matTooltip="exit your account">
+                    <p style="font-size: 12px"> {{ userName }} </p>
+                    <mat-icon>exit_to_app</mat-icon>
+                </div>
             }
             @if (authService.currentUserSig() == null) {
-                <p>Login or register</p>
+                <p routerLink="/login">Login or register</p>
             }
            <mat-slide-toggle matTooltip="Toggle theme" class="custom-slide-toggle" color="warn" (change)="toggleTheme($event)">
-                <!-- <span id="dark">Тёмный режим</span> -->
                 <i class="material-icons">lightbulb_outline</i>
             </mat-slide-toggle>
         </mat-toolbar>

@@ -23,7 +23,7 @@ export class BoardComponent implements OnInit {
   public inProgress: Task[] = [];
   public done: Task[] = [];
 
-  userId: string | undefined;
+  private userId: string | undefined;
   ngOnInit(): void {
     this.fireBaseAuth.onAuthStateChanged(user => {
       if (user) {
@@ -102,7 +102,6 @@ export class BoardComponent implements OnInit {
     )}
   }
   newTask(): void {
-    const userId: string | undefined = this.fireBaseAuth.currentUser?.uid;
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '400px',
       data: {

@@ -11,7 +11,7 @@ export class AuthService {
   classThemeSig = signal<string>('theme-dark');
   currentUserSig = signal<UserInterface | null | undefined>(undefined);
   userId = this.fireBaseAuth.currentUser?.uid;
-  constructor(private fireBaseAuth: Auth) { }
+  constructor(private readonly fireBaseAuth: Auth) { }
   register(email: string, username: string, password: string): Observable<void> {
     const promise = createUserWithEmailAndPassword(this.fireBaseAuth, email, password)
       .then(response => updateProfile(response.user, { displayName: username}));

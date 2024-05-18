@@ -9,11 +9,18 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatSlideToggleModule, MatToolbarModule, MatIconModule, RouterLink, MatTooltipModule],
+  imports: [
+    RouterOutlet, 
+    MatSlideToggleModule,
+    MatToolbarModule, 
+    MatIconModule, 
+    RouterLink, 
+    MatTooltipModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   public userName: string | null | undefined = '';
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -36,7 +43,6 @@ export class AppComponent implements OnInit{
 
   //code for dark and light themes
 
-  //classSignal: string = 'theme-dark';
   public toggleTheme(event: any) {
     if (event.checked) {
       this.authService.classThemeSig.set('');

@@ -29,6 +29,7 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {
   }
+  
   Submit(): void {
     const values = this.userForm.getRawValue();
     //const email = values.email!; can be deleted 
