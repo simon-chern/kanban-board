@@ -46,7 +46,6 @@ export class BoardComponent implements OnInit {
       console.log('User ID is not available.');
       return;
     }
-
     // Fetch all types of data in parallel
     const todo$ = this.getData(`todo|${this.userId}`);
     const inProgress$ = this.getData(`inProgress|${this.userId}`);
@@ -91,7 +90,6 @@ export class BoardComponent implements OnInit {
       const item = event.previousContainer.data[event.previousIndex];
       const targetCollection = event.container.id;
       
-      //console.log(event.previousContainer.id, targetCollection, event.currentIndex)
       this.addTodo(item.title, item.description, targetCollection);
       this.removeTask(event.previousContainer.id, item.id);
       transferArrayItem(
