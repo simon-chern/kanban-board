@@ -16,11 +16,10 @@
         [cdkDropListConnectedTo]="[doneList, inProgressList]"
         (cdkDropListDropped)="drop($event)"
         class="list">
-        @if ((todo).length === 0) {
-            <p class="empty-label">Empty list</p>
-        }
         @for (task of todo; track task.title) {
             <app-task (edit)="editTask('todo', $event)" class="task" cdkDrag [task]="task"></app-task>
+        } @empty {
+            <p class="empty-label">Empty list</p>
         }
       </mat-card>
     </div>
@@ -36,11 +35,10 @@
         [cdkDropListConnectedTo]="[todoList, doneList]"
         (cdkDropListDropped)="drop($event)"
         class="list">
-        @if ((inProgress).length === 0) {
-            <p class="empty-label">Empty list</p>
-        }
         @for (task of inProgress; track task.title) {
             <app-task (edit)="editTask('inProgress', $event)" class="task" cdkDrag [task]="task"></app-task>
+        } @empty {
+            <p class="empty-label">Empty list</p>
         }
       </mat-card>
     </div>
@@ -56,11 +54,10 @@
         [cdkDropListConnectedTo]="[todoList, inProgressList]"
         (cdkDropListDropped)="(drop($event))"
         class="list">
-        @if ((done).length === 0) {
-            <p class="empty-label">Empty list</p>
-        }
         @for (task of done; track task.title) {
             <app-task (edit)="editTask('done', $event)" class="task" cdkDrag [task]="task"></app-task>
+        } @empty {
+            <p class="empty-label">Empty list</p>
         }
       </mat-card>
     </div>
