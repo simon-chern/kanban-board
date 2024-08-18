@@ -25,6 +25,7 @@ export class LoginComponent {
   })
 
   public errorMessage: string = 'Enter correct value';
+  errorMessageIfWrong: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -35,7 +36,7 @@ export class LoginComponent {
         next: () => {
           this.router.navigateByUrl('/board');
         }, error: (err) => {
-          this.errorMessage = `Something went wrong ${err.message}`;
+          this.errorMessageIfWrong = `Something went wrong ${err.message}`;
         }
       }
       )
