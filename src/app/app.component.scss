@@ -11,3 +11,11 @@
         margin: 0 5px;
     }
 }
+@media screen and (max-width: 768px) {
+    p {
+        font-size: 12px;
+    }
+    .toolbar {
+        padding: 0 10px;
+    }
+} // end of media query
